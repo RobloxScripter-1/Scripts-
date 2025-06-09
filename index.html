@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scripts Here</title>
+  <style>
+    .copied-message {
+      color: green;
+      display: none;
+      margin-left: 10px;
+    }
+    .copied-message.visible {
+      display: inline;
+    }
+    input {
+      width: 90%;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <label for="Scripts">Lua Loadstring:</label><br>
+  <input 
+    type="text" 
+    id="luaLoadstring" 
+    value="loadstring(game:HttpGet('https://raw.githubusercontent.com/m00ndiety/Grow-a-garden-Egg/refs/heads/main/obf_Egg_ESP_GUI.lua.txt'))()" 
+    readonly
+  >
+  <button id="copyBtn" aria-label="Copy Lua loadstring to clipboard">Copy Code</button>
+  <span id="copiedMsg" class="copied-message" role="status" aria-live="polite">Copied!</span>
+
+  <script>
+    const button = document.getElementById('copyBtn');
+    const input = document.getElementById('luaLoadstring');
+    const copiedMsg = document.getElementById('copiedMsg');
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(input.value);
+        copiedMsg.classList.add('visible');
+        setTimeout(() => copiedMsg.classList.remove('visible'), 1200);
+      } catch (err) {
+        alert('Failed to copy the code: ' + err);
+      }
+    });
+  </script>
+</body>
+</html>
